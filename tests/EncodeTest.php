@@ -75,4 +75,19 @@ class EncodeTest extends TestCase
 
         $this->encoder->decode($a);
     }
+
+    #[TestWith(['test_string', '763decdd53ebc7a45e87c8cdaa90e04c4019135d0fb677b283a655159ebc3816'])]
+    public function testHash($a, $intended): void
+    {
+        $this->assertSame($this->encoder->hash($a), $intended);
+    }
+
+    #[TestWith([''])]
+    #[TestWith([null])]
+    public function testHashNullValueThrowsException($a): void
+    {
+        $this->expectException(EncodeNullValueException::class);
+
+        $this->encoder->hash($a);
+    }
 }

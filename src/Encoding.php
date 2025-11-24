@@ -8,6 +8,8 @@ use App\Exception\EncodeNullValueException;
 
 class Encoding
 {
+    private const HASH_SECRET_KEY = '312e5afa57ae2d99447cfb3984443b5359041f6dbafb87ba716ff35143c97556';
+
     public function __construct() {}
 
     public function encode($a)
@@ -32,5 +34,14 @@ class Encoding
         }
 
         return $result;
+    }
+
+    public function hash($a)
+    {
+        if ($a == null) {
+            throw new EncodeNullValueException();
+        }
+
+        return hash_hmac('sha256', $a, self::HASH_SECRET_KEY);
     }
 }
