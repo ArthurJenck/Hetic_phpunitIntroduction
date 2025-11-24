@@ -159,4 +159,9 @@ class MathTest extends TestCase
 
         $this->assertEquals(81, $result, 'Le carré de -9 doit être égal à 81');
     }
+
+    protected function tearDown(): void
+    {
+        unset($this->math);
+    }
 }

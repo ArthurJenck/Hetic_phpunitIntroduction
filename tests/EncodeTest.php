@@ -90,4 +90,9 @@ class EncodeTest extends TestCase
 
         $this->encoder->hash($a);
     }
+
+    protected function tearDown(): void
+    {
+        unset($this->encoder);
+    }
 }
