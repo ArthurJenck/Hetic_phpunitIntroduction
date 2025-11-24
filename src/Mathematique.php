@@ -30,4 +30,9 @@ class Mathematique
         }
         return $a / $b;
     }
+
+    public function square($a)
+    {
+        return $a * $a;
+    }
 }

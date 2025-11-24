@@ -138,4 +138,25 @@ class MathTest extends TestCase
         // Act
         $this->math->division($a, $b);
     }
+
+    /**
+     * Teste le carré d'une valeur dans différents scénarios
+     */
+    public function testSquareReturnsExpectedValues(): void
+    {
+        // Arrange
+        $a = 5;
+
+        // Act
+        $result = $this->math->square($a);
+
+        // Assert
+        $this->assertEquals(25, $result, 'Le carré de 5 doit être égal à 25');
+
+        $a = -9;
+
+        $result = $this->math->square($a);
+
+        $this->assertEquals(81, $result, 'Le carré de -9 doit être égal à 81');
+    }
 }
