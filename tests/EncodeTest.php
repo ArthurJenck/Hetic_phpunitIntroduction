@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use App\Encoding;
 use App\Exception\DecodeInvalidStringException;
 use App\Exception\DecodeNullValueException;
 use App\Exception\EncodeNullValueException;
@@ -36,22 +37,23 @@ class EncodeTest extends TestCase
     }
 
     #[TestWith(['test_string', 'dGVzdF9zdHJpbmc='])]
-    #[TestWith(['', ''])]
     #[TestWith(['string_with_spécI4ls_c*har/actèrs', 'c3RyaW5nX3dpdGhfc3DDqWNJNGxzX2MqaGFyL2FjdMOocnM='])]
     public function testEncode($a, $intended): void
     {
         $this->assertSame($this->encoder->encode($a), $intended);
     }
 
-    public function testEncodeNullValueThrowsException(): void
+    #[TestWith([''])]
+    #[TestWith([null])]
+    public function testEncodeNullValueThrowsException($a): void
     {
         $this->expectException(EncodeNullValueException::class);
 
-        $this->encoder->encode(null);
+        $this->encoder->encode($a);
     }
 
     #[TestWith(['dGVzdF9zdHJpbmc=', 'test_string'])]
-    #[TestWith(['', ''])]
+    #[TestWith(['c3RyaW5nX3dpdGhfc3DDqWNJNGxzX2MqaGFyL2FjdMOocnM=', 'string_with_spécI4ls_c*har/actèrs'])]
     public function testDecode($a, $intended): void
     {
         $this->assertSame($this->encoder->decode($a), $intended);
@@ -65,10 +67,12 @@ class EncodeTest extends TestCase
         $this->encoder->decode($a);
     }
 
-    public function testDecodeNullValueThrowsException(): void
+    #[TestWith([''])]
+    #[TestWith([null])]
+    public function testDecodeNullValueThrowsException($a): void
     {
         $this->expectException(DecodeNullValueException::class);
 
-        $this->encoder->decode(null);
+        $this->encoder->decode($a);
     }
 }
